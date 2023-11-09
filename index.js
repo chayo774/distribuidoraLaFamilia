@@ -1,5 +1,3 @@
-index.js
-
 import express from 'express'
 import usuarioRoutes from './routes/usuarioRoutes.js'
 
