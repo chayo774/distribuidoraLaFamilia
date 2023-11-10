@@ -1,10 +1,15 @@
 import express from 'express'
 import usuarioRoutes from './routes/usuarioRoutes.js'
-
+//Creating app
 const app = express()
-
-app.use('/', usuarioRoutes)
-
+//Hability Pug
+app.set('view engine', 'pug')
+app.set('views', './views')
+//Public directory
+app.use(express.static('public'))
+//Routing
+app.use('/auth', usuarioRoutes)
+//Define a port and start project
 const port = 3300
 app.listen(port,()=>{
     console.log("Working");
