@@ -4,7 +4,9 @@ const formularioLogin = (req, res) =>{
     })
 }
 const formularioRegistro = (req, res) =>{
-    res.render('auth/register')
+    res.render('auth/register',{
+        pagina: 'Crear cuenta'
+    })
 }
 // export nombrado
 export {
