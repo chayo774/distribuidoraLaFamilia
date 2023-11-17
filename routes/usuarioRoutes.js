@@ -1,11 +1,11 @@
 import express from 'express';
-import { formularioLogin, formularioRegistro } from '../controllers/usuarioController.js';
+import { formLogin, formRegister, formForgetPassword } from '../controllers/usuarioController.js';
 const router = express.Router();
 
-router.get('/login', formularioLogin);
-router.get('/registro', formularioRegistro);
-router.get('/nosotros', function(req, res){
-    res.send('Informacion de nosotros')
-})
+router.get('/login', formLogin);
+router.get('/register', formRegister);
+router.get('/forget-password', formForgetPassword);
+
+
 
 export default router
