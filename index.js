@@ -3,6 +3,8 @@ import usuarioRoutes from './routes/usuarioRoutes.js'
 import db from './config/db.js'
 //Creating app
 const app = express()
+//Enable reading data from forms
+app.use(express.urlencoded({extended:true}))
 // conexion to databases
 try{
     await db.authenticate();

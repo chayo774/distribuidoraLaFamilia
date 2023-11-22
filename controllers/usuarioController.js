@@ -13,9 +13,13 @@ const formForgetPassword = (req, res) =>{
         pagina: 'Recovery Password'
     })
 }
+const toregister = (req, res)=>{
+    console.log(req.body);
+}
 // export nombrado
 export {
     formLogin,
     formRegister,
-    formForgetPassword
+    formForgetPassword,
+    toregister
 }
