@@ -8,6 +8,7 @@ app.use(express.urlencoded({extended:true}))
 // conexion to databases
 try{
     await db.authenticate();
+    db.sync()
     console.log("Conexion correct to databases");
 }catch(error){
     console.log(error);
