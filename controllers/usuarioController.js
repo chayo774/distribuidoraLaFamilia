@@ -1,6 +1,7 @@
 import { check, validationResult } from "express-validator"
 import Usuario from "../models/Usuarios.js"
 import {generarId} from '../helpers/tokens.js'
+import {emailRegister} from '../helpers/emails.js'
 const formRegister = (req, res) =>{
     res.render('auth/register',{
         pagina: 'Sign up'
@@ -45,8 +46,14 @@ const toregister = async (req, res)=>{
             }
         })
     }
-    await Usuario.create({
+    const usuario = await Usuario.create({
         nombre, email, password, token:generarId()
+    })
+    emailRegister({
+        nombre:usuario.nombre,
+        email:usuario.email,
+        token:usuario.token
+
     })
     res.render('templates/message',{
         pagina: "Account created correctly.",
@@ -54,10 +61,34 @@ const toregister = async (req, res)=>{
     })
 
 }
+const confirm = async (req, res) =>{
+    const {token}=req.params;
+    // console.log("Confirm the token..."+req.params.token);
+    const usuario = await Usuario.findOne({where:{token}})
+    if (!usuario){
+        return res.render('auth/confirm-account',{
+            pagina: 'Error confirming you account',
+            mensaje: 'There was an error confirming your account, please try again.',
+            error:true
+        })
+    }
+        //Confirmar la cuenta:
+        usuario.token=null; //here delete token
+        usuario.confirmado=true;
+        await usuario.save();
+        res.render('auth/confirm-account',{
+            pagina: 'Account confirmed',
+            mensaje: 'The account was confirmed successfully',
+            error:false //se puede eliminar, si no esta presente pasa automatica a false:.
+        })
+    
+}
+
 // export nombrado
 export {
     formLogin,
     formRegister,
     formForgetPassword,
-    toregister
+    toregister, 
+    confirm
 }

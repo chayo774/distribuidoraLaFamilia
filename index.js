@@ -21,7 +21,7 @@ app.use(express.static('public'))
 //Routing
 app.use('/auth', usuarioRoutes)
 //Define a port and start project
-const port = 3300
+const port = process.env.PORT || 3300
 app.listen(port,()=>{
     console.log("The server is working in the port 3300");
 })
